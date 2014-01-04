@@ -1,0 +1,6 @@
+sources/cache
+sources/data
+sources/tmp
+*~
+sources-*
+

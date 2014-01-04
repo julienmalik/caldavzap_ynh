@@ -4,7 +4,8 @@
     require_once('cross_domain.inc');
     require_once('plugins/'.$config['auth_method'].'.inc');	// configured module - it defines the 'MODULE_authenticate()' function
 
-    if(call_user_func($config['auth_method'].'_authenticate')!==1)
+    if (0)
+//    if(call_user_func($config['auth_method'].'_authenticate')!==1)
     {
 		// HTTP authentication (exit if unsuccessfull)
 		if($config['auth_send_authenticate_header'])

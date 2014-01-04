@@ -437,6 +437,7 @@ function loadConfig()
 	// check username and password against the server and create config from globalNetworkCheckSettings
 	if(typeof globalNetworkCheckSettings!='undefined' && globalNetworkCheckSettings!=null)
 	{
+/*
 		if(globalLoginUsername=='' || globalLoginPassword=='')
 		{
 			$('#LoginPage').fadeTo(500, 1, function(){if(typeof globalDemoMode=='undefined') $('[data-type="system_username"]').focus()});
@@ -444,6 +445,7 @@ function loadConfig()
 			return false;
 		}
 		else
+*/
 		{
 			if(globalNetworkCheckSettings.crossDomain==undefined || typeof globalNetworkCheckSettings.crossDomain!='boolean')
 			{
@@ -474,6 +476,7 @@ function loadConfig()
 	// load the configuration XML(s) from the network
 	if(typeof globalNetworkAccountSettings!='undefined' && globalNetworkAccountSettings!=null)
 	{
+/*
 		if(globalLoginUsername=='' || globalLoginPassword=='')
 		{
 			$('#LoginPage').fadeTo(500, 1, function(){if(typeof globalDemoMode=='undefined') $('[data-type="system_username"]').focus()});
@@ -481,6 +484,7 @@ function loadConfig()
 			return false;
 		}
 		else
+*/
 		{
 			if(globalNetworkAccountSettings.crossDomain==undefined || typeof globalNetworkAccountSettings.crossDomain!='boolean')
 			{

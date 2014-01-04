@@ -1,0 +1,32 @@
+{
+    "name": "CalDavZAP",
+    "id": "caldavzap",
+    "description": {
+        "en": "CalDAV web client implementation"
+    },
+    "developer": {
+        "name": "julien",
+        "email": "julien.malik@paraiso.me",
+        "url": "http://www.inf-it.com/open-source/clients/caldavzap/"
+    },
+    "multi_instance": "false",
+    "arguments": {
+        "install" : [
+            {
+                "name": "domain",
+                "ask": {
+                    "en": "Choose a domain for CalDavZAP"
+                },
+                "example": "domain.org"
+            },
+            {
+                "name": "path",
+                "ask": {
+                    "en": "Choose a path for CalDavZAP"
+                },
+                "example": "/caldavzap",
+                "default": "/caldavzap"
+            }
+        ]
+    }
+}

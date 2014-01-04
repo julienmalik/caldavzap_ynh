@@ -1,0 +1,6 @@
+#!/bin/bash
+
+domain=$(sudo yunohost app setting caldavzap domain)
+
+sudo rm -rf /var/www/caldavzap
+sudo rm -f /etc/nginx/conf.d/$domain.d/caldavzap.conf
