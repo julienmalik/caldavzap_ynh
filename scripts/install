@@ -33,7 +33,7 @@ sed -i "s@YNH_DOMAIN@$domain@g" ../conf/config.inc
 radicale_path=$(sudo yunohost app setting radicale path)
 radicale_path=${radicale_path%/}
 sed -i "s@YNH_RADICALE_PATH@$radicale_path@g" ../conf/config.inc
-cp ../conf/config.inc $final_path
+cp ../conf/config.inc $final_path/auth
 
 # --- nginx.conf ---
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
