@@ -23,17 +23,23 @@ sed -i "s@YNH_WWW_PATH@$path@g" ../conf/config.js
 # TODO
 # langage=$(sudo bash -c "echo $LANG | cut -d '.' -f 1")
 # sed -i "s@YNH_INTERFACE_LANGUAGE@$langage@g" ../conf/config.js
-# TODO
-# timezone=$(cat /etc/timezone)
-# sed -i "s@YNH_TIMEZONE@$timezone@g" ../conf/config.js
-cp ../conf/config.js $final_path
+
+timezone=$(cat /etc/timezone)
+sed -i "s@YNH_TIMEZONE@$timezone@g" ../conf/config.js
+sudo cp ../conf/config.js $final_path
 
 # --- config.inc ---
 sed -i "s@YNH_DOMAIN@$domain@g" ../conf/config.inc
 radicale_path=$(sudo yunohost app setting radicale path)
 radicale_path=${radicale_path%/}
 sed -i "s@YNH_RADICALE_PATH@$radicale_path@g" ../conf/config.inc
-cp ../conf/config.inc $final_path/auth
+sudo cp ../conf/config.inc $final_path/auth
+
+# --- some cleanup of unused files ---
+sudo rm -f $final_path/{VERSION,cache_update.sh,changelog.txt}
+sudo rm -rf $final_path/misc
+sudo rm -rf $final_path/auth/doc
+# TODO .htaccess files ?
 
 # --- nginx.conf ---
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
