@@ -6,20 +6,45 @@ path=$(sudo yunohost app setting caldavzap path)
 # Remove trailing "/" for next commands
 path=${path%/}
 
-# Copy files to the right place
+
+# --- copy files ---
 final_path=/var/www/caldavzap
 sudo mkdir -p $final_path
-sudo cp -a ../sources/* $final_path
+sudo cp -r ../sources/* $final_path
 
-# Files owned by root, www-data can just read
-sudo find $final_path -type f | xargs sudo chmod 644
-sudo find $final_path -type d | xargs sudo chmod 755
-sudo chown -R root: $final_path
+# --- config.js ---
+sed -i "s@YNH_DOMAIN@$domain@g" ../conf/config.js
+sed -i "s@YNH_WWW_PATH@$path@g" ../conf/config.js
+# TODO
+# langage=$(sudo bash -c "echo $LANG | cut -d '.' -f 1")
+# sed -i "s@YNH_INTERFACE_LANGUAGE@$langage@g" ../conf/config.js
 
-# Modify Nginx configuration file and copy it to Nginx conf directory
+timezone=$(cat /etc/timezone)
+sed -i "s@YNH_TIMEZONE@$timezone@g" ../conf/config.js
+sudo cp ../conf/config.js $final_path
+
+# --- config.inc ---
+sed -i "s@YNH_DOMAIN@$domain@g" ../conf/config.inc
+radicale_path=$(sudo yunohost app setting radicale path)
+radicale_path=${radicale_path%/}
+sed -i "s@YNH_RADICALE_PATH@$radicale_path@g" ../conf/config.inc
+sudo cp ../conf/config.inc $final_path/auth
+
+# --- some cleanup of unused files ---
+sudo rm -f $final_path/{VERSION,cache_update.sh,changelog.txt}
+sudo rm -rf $final_path/misc
+sudo rm -rf $final_path/auth/doc
+# TODO .htaccess files ?
+
+# --- nginx.conf ---
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
 sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
 sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/caldavzap.conf
+
+# --- Permissions ---
+sudo chown -R root: $final_path
+sudo find $final_path -type f | xargs sudo chmod 644
+sudo find $final_path -type d | xargs sudo chmod 755
 
 sudo service nginx reload
 sudo yunohost app ssowatconf
