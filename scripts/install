@@ -10,7 +10,10 @@ if [[ ! $? -eq 0 ]]; then
     exit 1
 fi
 
-# TODO : check that radicale is installed
+sudo yunohost app list | python ../conf/list_installed_apps.py | grep radicale
+if [[ ! $? -eq 0 ]]; then
+    exit 1
+fi
 
 # --- copy files ---
 final_path=/var/www/caldavzap
