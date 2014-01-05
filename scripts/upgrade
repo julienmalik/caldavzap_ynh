@@ -9,8 +9,15 @@ path=${path%/}
 
 # --- copy files ---
 final_path=/var/www/caldavzap
+sudo rm -rf $final_path
 sudo mkdir -p $final_path
-sudo cp -r ../sources/* $final_path
+
+cd ../sources
+for f in $(git ls-files)
+do
+  sudo cp --parents $f $final_path
+done
+cd ../scripts
 
 # --- config.js ---
 sed -i "s@YNH_DOMAIN@$domain@g" ../conf/config.js
